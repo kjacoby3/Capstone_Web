@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .container.mt-5
+    .row
+      .col
+        .d-flex.justify-content-end
+          a.btn.btn-link(href="/hardware-inventory") Back to Inventory
+    .row.justify-content-center 
+      .col-lg-6
+        .card 
+          h2.card-header Create Hardware Item
+          .card-body
+            form(action="/hardware-inventory/create" method="post")
+              .mb-3 
+                label(for="name" class="form-label") Name
+                input#name.form-control(name="name" type="text" placeholder="Name" required)
+              .mb-3
+                label(for="label" class="form-label") Label
+                input#label.form-control(name="label" type="text" required="required" placeholder="Label")
+              .mb-3
+                label(for="category" class="form-label") Category
+                input#category.form-control(name="category", required="required", type="text" placeholder="Category")
+              
+              button.btn.btn-success(type="submit") Add Hardware

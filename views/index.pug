@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  .container.mt-3
+    .row
+      .col-lg-6
+        .d-flex.justify-content-start
+          h2 Hardware Inventory
+      .col
+        .d-flex.justify-content-end
+          if user['@ycphacks/roles'].includes('Organizer')
+            a.btn.btn-outline-primary(href='/hardware-inventory/create') Create new hardware
+    .row 
+      table.table 
+        thead 
+          tr 
+            th Name 
+            th Tag 
+            th Category 
+          tbody 
+            each hardwareInventoryItem of hardwareInventoryItems.data
+              tr
+                td= hardwareInventoryItem.details.name
+                td= hardwareInventoryItem.details.label
+                td= hardwareInventoryItem.details.category
+  
+  .position-fixed.bottom-0.start-50.translate-middle-x.pb-3
+    if !!user['@ycphacks/favorite_color']
+      .toast.align-items-center.text-white.border-0#welcomeToastCustom(role="alert" aria-live="assertive" aria-atomic="true" style=`background-color:${user['@ycphacks/favorite_color']}`)
+        .d-flex
+          if !!user['@ycphacks/roles']
+            .toast-body Welcome #{user['@ycphacks/roles']} #{user.name}!
+          button.btn-close.btn-close-white.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+    else
+      .toast.align-items-center.text-white.border-0.bg-primary#welcomeToastCustom(role="alert" aria-live="assertive" aria-atomic="true")
+        .d-flex
+          if !!user['@ycphacks/roles']
+            .toast-body Welcome #{user['@ycphacks/roles']} #{user.name}!
+          button.btn-close.btn-close-white.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+  
+  block javascript
+    script.
+      (function() {
+        var welcomeToast = new bootstrap.Toast(document.getElementById('welcomeToastCustom'));
+        console.log(welcomeToast);
+        welcomeToast.show();
+      })();
+    

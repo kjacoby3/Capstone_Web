@@ -1,0 +1,53 @@
+extends layout 
+
+block content 
+  .container.mt-5
+    h1 Profile
+
+    // Profile form
+    form#profileForm(method='POST' action='/profile')
+      .mb-3
+        label(for='name' class='form-label') Name:
+        input#name.form-control(name='name', type='text', placeholder='Name', value=user.name disabled)
+      .mb-3
+        label(for='email' class='form-label') Email:
+        input#email.form-control(name='email', type='email', placeholder='Email', value=user.email disabled)
+      .mb-3
+        // Input is locked
+        label(for='roles' class='form-label') Role:
+        if user['@ycphacks/roles'][0]
+          input#roles.form-control(name='roles', type='text', placeholder='Role', value=user['@ycphacks/roles'][0] disabled)
+        else
+          input#roles.form-control(name='roles', type='text', placeholder='Role', value='You have not been assigned a role' disabled)
+      .mb-3
+        label(for='favorite_color' class='form-label') Favorite Color:
+        input#favorite_color.form-control(name='favorite_color', type='color', placeholder='Favorite Color', value=user['@ycphacks/favorite_color'])
+        //- select#favorite_color.form-select(name='favorite_color')
+        //-   option Choose a color
+        //-   option(value='blue' selected=user['@ycphacks/favorite_color']=='blue') Blue
+        //-   option(value='red' selected=user['@ycphacks/favorite_color']=='red') Red
+        //-   option(value='green' selected=user['@ycphacks/favorite_color']=='green') Green
+        //-   option(value='yellow' selected=user['@ycphacks/favorite_color']=='yellow') Yellow
+        //-   option(value='orange' selected=user['@ycphacks/favorite_color']=='orange') Orange
+        //-   option(value='purple' selected=user['@ycphacks/favorite_color']=='purple') Purple
+        //-   option(value='pink' selected=user['@ycphacks/favorite_color']=='pink') Pink
+
+      .mb-3
+        label(for='phone_number' class='form-label') Phone Number:
+        input#phone_number.form-control(name='phone_number', type='tel', placeholder='XXX-XXX-XXXX', value=user['@ycphacks/phone_number'] pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}")
+      .mb-3
+        // Dropdown selection for shirt size defaults to user's current shirt size
+        label(for='shirt_size' class='form-label') Shirt Size:
+        select#shirt_size.form-select(name='shirt_size')
+          option(value='') Choose a shirt size
+          option(value='XS' selected=user['@ycphacks/shirt_size']=='XS') XS
+          option(value='S' selected=user['@ycphacks/shirt_size']=='S') S
+          option(value='M' selected=user['@ycphacks/shirt_size']=='M') M
+          option(value='L' selected=user['@ycphacks/shirt_size']=='L') L
+          option(value='XL' selected=user['@ycphacks/shirt_size']=='XL') XL
+          option(value='XXL' selected=user['@ycphacks/shirt_size']=='XXL') XXL
+      .mb-3
+        label(for='dietary_restrictions' class='form-label') Dietary Restrictions:
+        input#dietary_restrictions.form-control(name='dietary_restrictions', type='text', placeholder='Dietary Restrictions', value=user['@ycphacks/dietary_restrictions'])
+
+      button.btn.btn-success(type='submit') Save Changes
